@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:medibrum/data/repositories/brands/brand_repository.dart';
+import 'package:nkwonnewiapp/data/repositories/brands/brand_repository.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

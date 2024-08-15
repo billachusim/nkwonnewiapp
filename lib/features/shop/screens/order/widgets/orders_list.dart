@@ -1,5 +1,5 @@
-import 'package:medibrum/common/widgets/loaders/animation_loader.dart';
-import 'package:medibrum/utils/constants/image_strings.dart';
+import 'package:nkwonnewiapp/common/widgets/loaders/animation_loader.dart';
+import 'package:nkwonnewiapp/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';

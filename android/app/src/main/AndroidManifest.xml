@@ -12,7 +12,7 @@
 
 
     <application
-        android:label="medibrum"
+        android:label="nkwonnewiapp"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

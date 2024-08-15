@@ -1,4 +1,4 @@
-import 'package:medibrum/utils/device/device_utility.dart';
+import 'package:nkwonnewiapp/utils/device/device_utility.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

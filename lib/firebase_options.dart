@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,42 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA9L4xXXnXwPa62ioA2LShQ-0RdAcbeotc',
-    appId: '1:823307041176:web:ddaf3c80339832920653ed',
-    messagingSenderId: '823307041176',
-    projectId: 'codingwitht-c6d0f',
-    authDomain: 'codingwitht-c6d0f.firebaseapp.com',
-    storageBucket: 'codingwitht-c6d0f.appspot.com',
-    measurementId: 'G-GPNQNEKECP',
+    apiKey: 'AIzaSyBVekh-geE4VGmlePYkaX0klAWZL2TiGHY',
+    appId: '1:179851089730:web:fa3001b417bf17d4351adb',
+    messagingSenderId: '179851089730',
+    projectId: 'nkwo-nnewi-app',
+    authDomain: 'nkwo-nnewi-app.firebaseapp.com',
+    storageBucket: 'nkwo-nnewi-app.appspot.com',
+    measurementId: 'G-FYLXZF09BM',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAdRjw0tdFdERdPZDoMagTbxPhSg368Zic',
-    appId: '1:823307041176:android:892482637f44e4c10653ed',
-    messagingSenderId: '823307041176',
-    projectId: 'codingwitht-c6d0f',
-    storageBucket: 'codingwitht-c6d0f.appspot.com',
+    apiKey: 'AIzaSyD5FM3CsOYVrVsad1_5iJ1m1fYEniSp0Yw',
+    appId: '1:179851089730:android:a28881091e27f6ff351adb',
+    messagingSenderId: '179851089730',
+    projectId: 'nkwo-nnewi-app',
+    storageBucket: 'nkwo-nnewi-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDyypc4MyqBBneptEWpF17u3s7cu8X4wIY',
-    appId: '1:823307041176:ios:cef880e79df81b420653ed',
-    messagingSenderId: '823307041176',
-    projectId: 'codingwitht-c6d0f',
-    storageBucket: 'codingwitht-c6d0f.appspot.com',
-    androidClientId: '823307041176-qfcmju8p2mbqre4rl5kufhr7dhs9hs33.apps.googleusercontent.com',
-    iosClientId: '823307041176-ao9frv5a25ebiimfstp79lnc214urhgj.apps.googleusercontent.com',
-    iosBundleId: 'com.techfaculty.medibrum',
+    apiKey: 'AIzaSyA6PMg3BifsnWALrnF5JabvNvUhtP_C6ZQ',
+    appId: '1:179851089730:ios:3b69972f509d11e0351adb',
+    messagingSenderId: '179851089730',
+    projectId: 'nkwo-nnewi-app',
+    storageBucket: 'nkwo-nnewi-app.appspot.com',
+    iosBundleId: 'com.techfaculty.nkwonnewiapp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDyypc4MyqBBneptEWpF17u3s7cu8X4wIY',
-    appId: '1:823307041176:ios:3be076689b6866ea0653ed',
-    messagingSenderId: '823307041176',
-    projectId: 'codingwitht-c6d0f',
-    storageBucket: 'codingwitht-c6d0f.appspot.com',
-    androidClientId: '823307041176-qfcmju8p2mbqre4rl5kufhr7dhs9hs33.apps.googleusercontent.com',
-    iosClientId: '823307041176-7pen3ehk09mbnp7ukg6lm4a9sgr80pjr.apps.googleusercontent.com',
-    iosBundleId: 'com.techfaculty.medibrum.RunnerTests',
+    apiKey: 'AIzaSyA6PMg3BifsnWALrnF5JabvNvUhtP_C6ZQ',
+    appId: '1:179851089730:ios:3b69972f509d11e0351adb',
+    messagingSenderId: '179851089730',
+    projectId: 'nkwo-nnewi-app',
+    storageBucket: 'nkwo-nnewi-app.appspot.com',
+    iosBundleId: 'com.techfaculty.nkwonnewiapp',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBVekh-geE4VGmlePYkaX0klAWZL2TiGHY',
+    appId: '1:179851089730:web:97a1a05649e6eae2351adb',
+    messagingSenderId: '179851089730',
+    projectId: 'nkwo-nnewi-app',
+    authDomain: 'nkwo-nnewi-app.firebaseapp.com',
+    storageBucket: 'nkwo-nnewi-app.appspot.com',
+    measurementId: 'G-93QPJPMDP9',
+  );
+
 }

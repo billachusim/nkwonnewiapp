@@ -1,4 +1,4 @@
-package com.techfaculty.medibrum
+package com.techfaculty.nkwonnewiapp
 
 import io.flutter.embedding.android.FlutterActivity
 

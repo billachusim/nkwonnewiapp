@@ -1,4 +1,4 @@
-import 'package:medibrum/utils/constants/enums.dart';
+import 'package:nkwonnewiapp/utils/constants/enums.dart';
 import 'package:get/get.dart';
 import '../../../../data/repositories/product/product_repository.dart';
 import '../../../../utils/popups/loaders.dart';

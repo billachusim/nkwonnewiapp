@@ -1,5 +1,5 @@
-import 'package:medibrum/features/authentication/screens/login/login.dart';
-import 'package:medibrum/features/authentication/screens/password_configuration/forget_password.dart';
+import 'package:nkwonnewiapp/features/authentication/screens/login/login.dart';
+import 'package:nkwonnewiapp/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../features/authentication/screens/onboarding/onboarding.dart';
 import '../features/authentication/screens/signup/signup.dart';

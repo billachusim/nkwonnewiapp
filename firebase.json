@@ -1,8 +1,1 @@
-{
-  "functions": {
-    "source": "functions"
-  },
-  "storage": {
-    "rules": "storage.rules"
-  }
-}
+{"functions":{"source":"functions"},"storage":{"rules":"storage.rules"},"flutter":{"platforms":{"android":{"default":{"projectId":"nkwo-nnewi-app","appId":"1:179851089730:android:a28881091e27f6ff351adb","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"nkwo-nnewi-app","appId":"1:179851089730:ios:3b69972f509d11e0351adb","uploadDebugSymbols":true,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"macos":{"default":{"projectId":"nkwo-nnewi-app","appId":"1:179851089730:ios:3b69972f509d11e0351adb","uploadDebugSymbols":true,"fileOutput":"macos/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"nkwo-nnewi-app","configurations":{"android":"1:179851089730:android:a28881091e27f6ff351adb","ios":"1:179851089730:ios:3b69972f509d11e0351adb","macos":"1:179851089730:ios:3b69972f509d11e0351adb","web":"1:179851089730:web:fa3001b417bf17d4351adb","windows":"1:179851089730:web:97a1a05649e6eae2351adb"}}}}}}

@@ -1,4 +1,4 @@
-import 'package:medibrum/data/repositories/product/product_repository.dart';
+import 'package:nkwonnewiapp/data/repositories/product/product_repository.dart';
 import 'package:get/get.dart';
 
 import '../../../data/repositories/brands/brand_repository.dart';

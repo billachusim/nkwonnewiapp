@@ -1,5 +1,5 @@
-import 'package:medibrum/common/widgets/success_screen/success_screen.dart';
-import 'package:medibrum/data/services/paypal/paypal.dart';
+import 'package:nkwonnewiapp/common/widgets/success_screen/success_screen.dart';
+import 'package:nkwonnewiapp/data/services/paypal/paypal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

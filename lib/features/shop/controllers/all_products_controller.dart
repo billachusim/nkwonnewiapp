@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:medibrum/data/repositories/product/product_repository.dart';
+import 'package:nkwonnewiapp/data/repositories/product/product_repository.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/popups/loaders.dart';

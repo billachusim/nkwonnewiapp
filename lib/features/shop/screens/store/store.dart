@@ -1,5 +1,5 @@
-import 'package:medibrum/features/shop/controllers/categories_controller.dart';
-import 'package:medibrum/home_menu.dart';
+import 'package:nkwonnewiapp/features/shop/controllers/categories_controller.dart';
+import 'package:nkwonnewiapp/home_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

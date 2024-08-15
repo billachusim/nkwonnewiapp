@@ -1,5 +1,5 @@
-import 'package:medibrum/utils/constants/colors.dart';
-import 'package:medibrum/utils/helpers/helper_functions.dart';
+import 'package:nkwonnewiapp/utils/constants/colors.dart';
+import 'package:nkwonnewiapp/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';

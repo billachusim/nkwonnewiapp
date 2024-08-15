@@ -1,4 +1,4 @@
-import 'package:medibrum/features/shop/controllers/product/product_controller.dart';
+import 'package:nkwonnewiapp/features/shop/controllers/product/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

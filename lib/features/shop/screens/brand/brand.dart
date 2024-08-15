@@ -1,4 +1,4 @@
-import 'package:medibrum/common/widgets/shimmers/vertical_product_shimmer.dart';
+import 'package:nkwonnewiapp/common/widgets/shimmers/vertical_product_shimmer.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
