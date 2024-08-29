@@ -9,8 +9,8 @@ import '../shimmers/shimmer.dart';
 class TCircularImage extends StatelessWidget {
   const TCircularImage({
     super.key,
-    this.width = 56,
-    this.height = 56,
+    this.width = 60,
+    this.height = 60,
     this.overlayColor,
     this.backgroundColor,
     required this.image,
@@ -31,10 +31,10 @@ class TCircularImage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      padding: EdgeInsets.all(padding),
+      //padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
         // If image background color is null then switch it to light and dark mode color design.
-        color: backgroundColor ?? (THelperFunctions.isDarkMode(context) ? TColors.black : TColors.white),
+        //color: backgroundColor ?? (THelperFunctions.isDarkMode(context) ? TColors.black : TColors.white),
         borderRadius: BorderRadius.circular(100),
       ),
       child: ClipRRect(

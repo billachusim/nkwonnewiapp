@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "179851089730",
+    "project_id": "nkwo-nnewi-app",
+    "storage_bucket": "nkwo-nnewi-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179851089730:android:a28881091e27f6ff351adb",
+        "android_client_info": {
+          "package_name": "com.techfaculty.nkwonnewiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179851089730-o4ugd92jbof68fu2bqi1vbkkvjq9qtvo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techfaculty.nkwonnewiapp",
+            "certificate_hash": "f39eb2e3942038185f95ed667802293686fe412a"
+          }
+        },
+        {
+          "client_id": "179851089730-56adq007k2vrhqap4pmq1q3aitv85jne.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5FM3CsOYVrVsad1_5iJ1m1fYEniSp0Yw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179851089730-56adq007k2vrhqap4pmq1q3aitv85jne.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "179851089730-ff4719fq56ck18dk7i160a0rk36a77uj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.techfaculty.nkwonnewiapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

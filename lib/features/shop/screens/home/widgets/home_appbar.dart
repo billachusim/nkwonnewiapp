@@ -24,7 +24,7 @@ class THomeAppBar extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(TTexts.homeAppbarTitle, style: Theme.of(context).textTheme.labelMedium!.apply(color: TColors.grey)),
+            Text(TTexts.homeAppbarTitle, style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.white)),
             Obx(
               () {
                 // Check if user Profile is still loading
