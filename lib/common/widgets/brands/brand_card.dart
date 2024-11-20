@@ -9,7 +9,7 @@ import '../custom_shapes/containers/rounded_container.dart';
 import '../images/t_circular_image.dart';
 import '../texts/t_brand_title_text_with_verified_icon.dart';
 
-/// A card widget representing a brand.
+// A card widget representing a brand.
 class TBrandCard extends StatelessWidget {
   /// Default constructor for the TBrandCard.
   ///
@@ -48,7 +48,6 @@ class TBrandCard extends StatelessWidget {
                 image: brand.image,
                 isNetworkImage: true,
                 backgroundColor: Colors.transparent,
-                overlayColor: isDark ? TColors.white : TColors.black,
               ),
             ),
             const SizedBox(width: TSizes.spaceBtwItems / 2),

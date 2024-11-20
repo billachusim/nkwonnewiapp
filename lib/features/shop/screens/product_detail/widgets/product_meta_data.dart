@@ -10,6 +10,7 @@ import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 import '../../../controllers/product/product_controller.dart';
 import '../../../models/product_model.dart';
+import '../../brand/all_brands.dart';
 
 class TProductMetaData extends StatelessWidget {
   const TProductMetaData({
@@ -35,7 +36,7 @@ class TProductMetaData extends StatelessWidget {
               Row(
                 children: [
                   TRoundedContainer(
-                    backgroundColor: TColors.secondary,
+                    backgroundColor: TColors.primary,
                     radius: TSizes.sm,
                     padding: const EdgeInsets.symmetric(horizontal: TSizes.sm, vertical: TSizes.xs),
                     child: Text('$salePercentage%',
@@ -79,11 +80,21 @@ class TProductMetaData extends StatelessWidget {
               height: 32,
               isNetworkImage: true,
               image: product.brand!.image,
-              overlayColor: darkMode ? TColors.white : TColors.black,
             ),
-            TBrandTitleWithVerifiedIcon(title: product.brand!.name, brandTextSize: TextSizes.medium),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>   AllBrandsScreen()),
+                );
+              },
+              child: TBrandTitleWithVerifiedIcon(
+                title: product.brand!.name,
+                brandTextSize: TextSizes.medium,
+              ),
+            ),
           ],
-        ),
+        )
       ],
     );
   }

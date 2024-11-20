@@ -2,7 +2,6 @@ import 'package:nkwonnewiapp/features/shop/controllers/categories_controller.dar
 import 'package:nkwonnewiapp/home_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../common/widgets/appbar/tabbar.dart';
 import '../../../../common/widgets/brands/brand_card.dart';
@@ -36,7 +35,7 @@ class StoreScreen extends StatelessWidget {
         child: Scaffold(
           /// -- Appbar -- Tutorial [Section # 3, Video # 7]
           appBar: TAppBar(
-            title: Text('Store', style: Theme.of(context).textTheme.headlineMedium),
+            title: Text('Retailers', style: Theme.of(context).textTheme.headlineMedium),
             actions: const [TCartCounterIcon()],
           ),
           body: NestedScrollView(
@@ -60,11 +59,11 @@ class StoreScreen extends StatelessWidget {
                       children: [
                         /// -- Search bar
                         const SizedBox(height: TSizes.spaceBtwItems),
-                        const TSearchContainer(text: 'Search in Store', showBorder: true, showBackground: false, padding: EdgeInsets.zero),
+                        const TSearchContainer(text: 'Search a Retailer', showBorder: true, showBackground: false, padding: EdgeInsets.zero),
                         const SizedBox(height: TSizes.spaceBtwSections),
 
                         /// -- Featured Brands
-                        TSectionHeading(title: 'Featured Brands', onPressed: () => Get.to(() => const AllBrandsScreen())),
+                        TSectionHeading(title: 'Featured Retailers', onPressed: () => Get.to(() => const AllBrandsScreen())),
                         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
 
                         /// -- Brands

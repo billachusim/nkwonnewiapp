@@ -22,6 +22,9 @@ class ProductModel {
   List<ProductAttributeModel>? productAttributes;
   List<ProductVariationModel>? productVariations;
 
+  // New field for WhatsApp URL
+  String? whatsappUrl;
+
   ProductModel({
     required this.id,
     required this.title,
@@ -39,13 +42,14 @@ class ProductModel {
     this.description,
     this.productAttributes,
     this.productVariations,
+    this.whatsappUrl, // Add whatsappUrl here
   });
 
   /// Create Empty func for clean code
   static ProductModel empty() => ProductModel(id: '', title: '', stock: 0, price: 0, thumbnail: '', productType: '');
 
   /// Json Format
-  toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'SKU': sku,
       'Title': title,
@@ -56,11 +60,12 @@ class ProductModel {
       'SalePrice': salePrice,
       'IsFeatured': isFeatured,
       'CategoryId': categoryId,
-      'Brand': brand!.toJson(),
+      'Brand': brand?.toJson(),
       'Description': description,
       'ProductType': productType,
       'ProductAttributes': productAttributes != null ? productAttributes!.map((e) => e.toJson()).toList() : [],
       'ProductVariations': productVariations != null ? productVariations!.map((e) => e.toJson()).toList() : [],
+      'WhatsAppUrl': whatsappUrl, // Include whatsappUrl in JSON
     };
   }
 
@@ -69,7 +74,7 @@ class ProductModel {
     final data = document.data()!;
     return ProductModel(
       id: document.id,
-      title: data['Title'],
+      title: data['Title'] ?? '',
       price: double.parse((data['Price'] ?? 0.0).toString()),
       sku: data['SKU'],
       stock: data['Stock'] ?? 0,
@@ -81,8 +86,9 @@ class ProductModel {
       productType: data['ProductType'] ?? '',
       brand: BrandModel.fromJson(data['Brand']),
       images: data['Images'] != null ? List<String>.from(data['Images']) : [],
-      productAttributes: (data['ProductAttributes'] as List<dynamic>).map((e) => ProductAttributeModel.fromJson(e)).toList(),
-      productVariations: (data['ProductVariations'] as List<dynamic>).map((e) => ProductVariationModel.fromJson(e)).toList(),
+      productAttributes: (data['ProductAttributes'] as List<dynamic>?)?.map((e) => ProductAttributeModel.fromJson(e)).toList(),
+      productVariations: (data['ProductVariations'] as List<dynamic>?)?.map((e) => ProductVariationModel.fromJson(e)).toList(),
+      whatsappUrl: data['WhatsAppUrl'], // Read whatsappUrl from Firestore
     );
   }
 
@@ -103,8 +109,9 @@ class ProductModel {
       productType: data['ProductType'] ?? '',
       brand: BrandModel.fromJson(data['Brand']),
       images: data['Images'] != null ? List<String>.from(data['Images']) : [],
-      productAttributes: (data['ProductAttributes'] as List<dynamic>).map((e) => ProductAttributeModel.fromJson(e)).toList(),
-      productVariations: (data['ProductVariations'] as List<dynamic>).map((e) => ProductVariationModel.fromJson(e)).toList(),
+      productAttributes: (data['ProductAttributes'] as List<dynamic>?)?.map((e) => ProductAttributeModel.fromJson(e)).toList(),
+      productVariations: (data['ProductVariations'] as List<dynamic>?)?.map((e) => ProductVariationModel.fromJson(e)).toList(),
+      whatsappUrl: data['WhatsAppUrl'], // Read whatsappUrl from Firestore
     );
   }
 }

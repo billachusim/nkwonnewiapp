@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
+import 'package:url_launcher/url_launcher.dart'; // Import url_launcher
 
 import '../../../../common/widgets/products/cart/bottom_add_to_cart_widget.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
@@ -44,7 +45,6 @@ class ProductDetailScreen extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwSections / 2),
 
                   /// -- Attributes
-                  // If Product has no variations do not show attributes as well.
                   if (product.productVariations != null && product.productVariations!.isNotEmpty) TProductAttributes(product: product),
                   if (product.productVariations != null && product.productVariations!.isNotEmpty) const SizedBox(height: TSizes.spaceBtwSections),
 
@@ -58,7 +58,6 @@ class ProductDetailScreen extends StatelessWidget {
                   /// - Description
                   const TSectionHeading(title: 'Description', showActionButton: false),
                   const SizedBox(height: TSizes.spaceBtwItems),
-                  // Read more package
                   ReadMoreText(
                     product.description!,
                     trimLines: 2,
@@ -90,7 +89,43 @@ class ProductDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: TBottomAddToCart(product: product),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TBottomAddToCart(product: product),
+
+          // WhatsApp Bar
+          GestureDetector(
+            onTap: () {
+              _launchWhatsApp();
+            },
+            child: Container(
+              color: Colors.green,
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Iconsax.message, color: Colors.white), // WhatsApp icon
+                  const SizedBox(width: 8.0),
+                  const Text('Chat with Seller on WhatsApp', style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  void _launchWhatsApp() async {
+    final String phoneNumber = "2348144027599"; // Replace with seller's phone number
+    final String message = "Hello! I am interested in your product.";
+    final Uri whatsappUri = Uri.parse("https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}");
+
+    if (await canLaunch(whatsappUri.toString())) {
+      await launch(whatsappUri.toString());
+    } else {
+      throw 'Could not launch $whatsappUri';
+    }
   }
 }
