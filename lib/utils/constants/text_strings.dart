@@ -12,13 +12,14 @@ class TTexts {
 
 
   // -- OnBoarding Texts
-  static const String onBoardingTitle1 = "Choose your product";
-  static const String onBoardingTitle2 = "Select Payment Method";
-  static const String onBoardingTitle3 = "Deliver at your door step";
+  static const String onBoardingTitle1 = "Products tailored to convenience";
+  static const String onBoardingTitle2 = "Choose Your Payment Option";
+  static const String onBoardingTitle3 = "Get It Delivered to Your Doorstep";
 
-  static const String onBoardingSubTitle1 = "Welcome to a World of Limitless Choices - Your Perfect Product Awaits!";
-  static const String onBoardingSubTitle2 = "For Seamless Transactions, Choose Your Payment Path - Your Convenience, Our Priority!";
-  static const String onBoardingSubTitle3 = "From Our Doorstep to Yours - Swift, Secure, and Contactless Delivery!";
+  static const String onBoardingSubTitle1 = "Discover a Wide Range of Products, Motorcycles and Parts!";
+  static const String onBoardingSubTitle2 = "Enjoy Hassle-Free Transactions - Select the Payment Method That Works for You!";
+  static const String onBoardingSubTitle3 = "Fast, Reliable, and Contactless Delivery Right to Your Home!";
+
 
 
   // -- Authentication Forms

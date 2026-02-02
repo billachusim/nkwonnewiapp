@@ -28,24 +28,23 @@ class StoreScreen extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
     return PopScope(
       canPop: false,
-        // Intercept the back button press and redirect to Home Screen
+      // Intercept the back button press and redirect to Home Screen
       onPopInvoked: (value) async => Get.offAll(const HomeMenu()),
       child: DefaultTabController(
         length: categories.length,
         child: Scaffold(
-          /// -- Appbar -- Tutorial [Section # 3, Video # 7]
+          /// -- Appbar --
           appBar: TAppBar(
             title: Text('Retailers', style: Theme.of(context).textTheme.headlineMedium),
             actions: const [TCartCounterIcon()],
           ),
           body: NestedScrollView(
-            /// -- Header -- Tutorial [Section # 3, Video # 7]
+            /// -- Header --
             headerSliverBuilder: (_, innerBoxIsScrolled) {
               return [
                 SliverAppBar(
                   pinned: true,
                   floating: true,
-                  // Space between Appbar and TabBar. WithIn this height we have added [Search bar] and [Featured brands]
                   expandedHeight: 440,
                   automaticallyImplyLeading: false,
                   backgroundColor: dark ? TColors.black : TColors.white,
@@ -66,29 +65,31 @@ class StoreScreen extends StatelessWidget {
                         TSectionHeading(title: 'Featured Retailers', onPressed: () => Get.to(() => const AllBrandsScreen())),
                         const SizedBox(height: TSizes.spaceBtwItems / 1.5),
 
-                        /// -- Brands
+                        /// -- Brands in a Column
                         Obx(
-                          () {
-                            // Check if categories are still loading
+                              () {
+                            // Check if brands are still loading
                             if (brandController.isLoading.value) return const TBrandsShimmer();
 
-                            // Check if there are no featured categories found
+                            // Check if there are no featured brands found
                             if (brandController.featuredBrands.isEmpty) {
                               return Center(
-                                  child: Text('No Data Found!', style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.white)));
+                                child: Text('No Data Found!', style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.white)),
+                              );
                             } else {
                               /// Data Found
-                              return TGridLayout(
-                                itemCount: 4,
-                                mainAxisExtent: 80,
-                                itemBuilder: (_, index) {
+                              return Column(
+                                children: List.generate(brandController.featuredBrands.length, (index) {
                                   final brand = brandController.featuredBrands[index];
-                                  return TBrandCard(
-                                    brand: brand,
-                                    showBorder: true,
-                                    onTap: () => Get.to(() => BrandScreen(brand: brand)),
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: TSizes.spaceBtwItems), // Add space between cards
+                                    child: TBrandCard(
+                                      brand: brand,
+                                      showBorder: true,
+                                      onTap: () => Get.to(() => BrandScreen(brand: brand)),
+                                    ),
                                   );
-                                },
+                                }),
                               );
                             }
                           },

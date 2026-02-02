@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:get/get.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import '../popups/loaders.dart';
 
@@ -10,7 +10,7 @@ class NetworkManager extends GetxController {
   static NetworkManager get instance => Get.find();
 
   final Connectivity _connectivity = Connectivity();
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
   final Rx<ConnectivityResult> _connectionStatus = ConnectivityResult.none.obs;
 
   /// Initialize the network manager and set up a stream to continually check the connection status.
@@ -18,11 +18,24 @@ class NetworkManager extends GetxController {
   void onInit() {
     super.onInit();
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    checkConnectivity();
   }
 
   /// Update the connection status based on changes in connectivity and show a relevant popup for no internet connection.
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    _connectionStatus.value = result;
+  void _updateConnectionStatus(List<ConnectivityResult> result) {
+    // The list can be empty, so we handle that case.
+    if (result.isEmpty) {
+      _connectionStatus.value = ConnectivityResult.none;
+      return;
+    }
+
+    // The new API returns a list of connection types. If the list contains anything other than 'none', we consider it connected.
+    if (result.contains(ConnectivityResult.mobile) || result.contains(ConnectivityResult.wifi)) {
+      _connectionStatus.value = result.firstWhere((e) => e != ConnectivityResult.none, orElse: () => ConnectivityResult.none);
+    } else {
+      _connectionStatus.value = ConnectivityResult.none;
+    }
+
     if (_connectionStatus.value == ConnectivityResult.none) {
       TLoaders.warningSnackBar(title: 'No Internet Connection');
     }
@@ -33,14 +46,17 @@ class NetworkManager extends GetxController {
   Future<bool> isConnected() async {
     try {
       final result = await _connectivity.checkConnectivity();
-      if (result == ConnectivityResult.none) {
-        return false;
-      } else {
-        return true;
-      }
+      // The new API returns a list. If it contains mobile or wifi, we are connected.
+      return result.contains(ConnectivityResult.mobile) || result.contains(ConnectivityResult.wifi);
     } on PlatformException catch (_) {
       return false;
     }
+  }
+  
+  /// Check the initial connectivity of the device.
+  Future<void> checkConnectivity() async {
+    final result = await _connectivity.checkConnectivity();
+    _updateConnectionStatus(result);
   }
 
   /// Dispose or close the active connectivity stream.

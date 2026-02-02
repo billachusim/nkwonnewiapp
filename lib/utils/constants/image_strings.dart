@@ -5,8 +5,8 @@
 class TImages {
 
   // -- App Logos
-  static const String darkAppLogo = "assets/logos/t-store-splash-logo-black.png";
-  static const String lightAppLogo = "assets/logos/t-store-splash-logo-white.png";
+  static const String darkAppLogo = "assets/logos/NNN-logo-white.png";
+  static const String lightAppLogo = "assets/logos/NNN-logo-white.png";
 
   // -- Social Logos
   static const String google = "assets/logos/google-icon.png";
@@ -65,7 +65,7 @@ class TImages {
   static String loaderAnimation = "assets/images/animations/loader-animation.json";
 
   // -- OnBoarding Texts
-  static const String onBoardingImage1 = "assets/images/on_boarding_images/sammy-line-searching.gif";
+  static const String onBoardingImage1 = "assets/images/on_boarding_images/juicy-girl-and-boy-searching-for-the-right-files.gif";
   static const String onBoardingImage2 = "assets/images/on_boarding_images/sammy-line-shopping.gif";
   static const String onBoardingImage3 = "assets/images/on_boarding_images/sammy-line-delivery.gif";
 
