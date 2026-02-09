@@ -1,9 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../common/widgets/custom_shapes/containers/circular_container.dart';
-import '../../../../../common/widgets/images/t_rounded_image.dart';
 import '../../../../../common/widgets/shimmers/shimmer.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
@@ -32,20 +30,11 @@ class TPromoSlider extends StatelessWidget {
           // Display CarouselSlider with banners and page indicator
           return Column(
             children: [
-              CarouselSlider(
-                options: CarouselOptions(
-                  viewportFraction: 1,
-                  onPageChanged: (index, _) => controller.updatePageIndicator(index),
+              const SizedBox(
+                height: 190,
+                child: Center(
+                  child: Text('Carousel Slider has been temporarily removed.'),
                 ),
-                items: controller.banners
-                    .map(
-                      (banner) => TRoundedImage(
-                        imageUrl: banner.imageUrl,
-                        isNetworkImage: true,
-                        onPressed: () => Get.toNamed(banner.targetScreen),
-                      ),
-                    )
-                    .toList(),
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
               Center(
