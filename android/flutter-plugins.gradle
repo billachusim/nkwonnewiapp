@@ -1,0 +1,1 @@
+include_flutter_plugins(project.rootDir.absolutePath + '/.flutter-plugins')

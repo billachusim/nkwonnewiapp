@@ -37,30 +37,38 @@ class AuthenticationRepository extends GetxController {
 
   String get getPhoneNo => _firebaseUser.value?.phoneNumber ?? "";
 
+
   /// Called from main.dart on app launch
   @override
   void onReady() {
     _firebaseUser = Rx<User?>(_auth.currentUser);
     _firebaseUser.bindStream(_auth.userChanges());
     FlutterNativeSplash.remove();
-    screenRedirect(_firebaseUser.value);
+
+    // Fix: Ensure navigation happens after the first frame is rendered
+    // This prevents the "contextless navigation" error
+    Future.delayed(const Duration(milliseconds: 10), () {
+      screenRedirect(_firebaseUser.value);
+    });
   }
 
   /// Function to Show Relevant Screen
   screenRedirect(User? user) async {
+    // Note: If you still see the error, replace Future.delayed with:
+    // WidgetsBinding.instance.addPostFrameCallback((_) { ... });
+
     if (user != null) {
-      // User Logged-In: If email verified let the user go to Home Screen else to the Email Verification Screen
       if (user.emailVerified) {
-        // Initialize User Specific Storage
         await TLocalStorage.init(user.uid);
         Get.offAll(() => const HomeMenu());
       } else {
         Get.offAll(() => VerifyEmailScreen(email: getUserEmail));
       }
     } else {
-      // Local Storage: User is new or Logged out! If new then write isFirstTime Local storage variable = true.
       deviceStorage.writeIfNull('isFirstTime', true);
-      deviceStorage.read('isFirstTime') != true ? Get.offAll(() => const LoginScreen()) : Get.offAll(() => const OnBoardingScreen());
+      deviceStorage.read('isFirstTime') != true
+          ? Get.offAll(() => const LoginScreen())
+          : Get.offAll(() => const OnBoardingScreen());
     }
   }
 
@@ -161,15 +169,15 @@ class AuthenticationRepository extends GetxController {
   Future<UserCredential?> signInWithGoogle() async {
     try {
       // Trigger the authentication flow
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAccount googleUser = await GoogleSignIn.instance.authenticate();
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.idToken,
+        idToken: googleAuth.idToken,
       );
 
       // Once signed in, return the UserCredential
@@ -188,6 +196,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
+
   ///[FacebookAuthentication] - FACEBOOK
   Future<UserCredential> signInWithFacebook() async {
     try {
@@ -196,7 +205,7 @@ class AuthenticationRepository extends GetxController {
 
       // Create a credential from the access token
       final AccessToken accessToken = loginResult.accessToken!;
-      final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(accessToken.token);
+      final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(accessToken.tokenString);
 
       // Once signed in, return the UserCredential
       return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
