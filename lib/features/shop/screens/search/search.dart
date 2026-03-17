@@ -7,6 +7,7 @@ import 'package:nkwonnewiapp/features/shop/controllers/categories_controller.dar
 import 'package:nkwonnewiapp/features/shop/screens/all_products/all_products.dart';
 import 'package:nkwonnewiapp/features/shop/screens/brand/brand.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -23,8 +24,36 @@ import '../../models/category_model.dart';
 class SearchScreen extends StatelessWidget {
   SearchScreen({Key? key}) : super(key: key);
 
+  static final _priceInputFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'));
+
   final categoryController = CategoryController.instance;
   final searchController = Get.put(TSearchController());
+
+  void _updateMinPrice(String value) {
+    final parsedValue = double.tryParse(value.trim());
+
+    if (value.trim().isEmpty) {
+      searchController.minPrice.value = 0.0;
+      return;
+    }
+
+    if (parsedValue != null) {
+      searchController.minPrice.value = parsedValue;
+    }
+  }
+
+  void _updateMaxPrice(String value) {
+    final parsedValue = double.tryParse(value.trim());
+
+    if (value.trim().isEmpty) {
+      searchController.maxPrice.value = double.infinity;
+      return;
+    }
+
+    if (parsedValue != null) {
+      searchController.maxPrice.value = parsedValue;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,33 +250,60 @@ class SearchScreen extends StatelessWidget {
               /// Sort by Radios
               Text('Pricing', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: TSizes.spaceBtwItems / 2),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      onChanged: (value) => searchController.minPrice.value = double.parse(value),
-                      decoration: const InputDecoration(hintText: '\$ Lowest'),
-                    ),
-                  ),
-                  const SizedBox(width: TSizes.spaceBtwItems),
-                  Expanded(
-                    child: TextFormField(
-                      onChanged: (value) => searchController.maxPrice.value = double.parse(value),
-                      decoration: const InputDecoration(hintText: '\$ Highest'),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: TSizes.spaceBtwSections),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    searchController.search();
-                    Get.back();
-                  },
-                  child: const Text('Apply'),
-                ),
+              Obx(
+                () {
+                  final hasInvalidPriceRange = searchController.minPrice.value > searchController.maxPrice.value;
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              onChanged: _updateMinPrice,
+                              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                              inputFormatters: [_priceInputFormatter],
+                              decoration: const InputDecoration(hintText: '\$ Lowest'),
+                            ),
+                          ),
+                          const SizedBox(width: TSizes.spaceBtwItems),
+                          Expanded(
+                            child: TextFormField(
+                              onChanged: _updateMaxPrice,
+                              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                              inputFormatters: [_priceInputFormatter],
+                              decoration: const InputDecoration(hintText: '\$ Highest'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (hasInvalidPriceRange)
+                        const Padding(
+                          padding: EdgeInsets.only(top: TSizes.spaceBtwItems / 2),
+                          child: Text(
+                            'Minimum price cannot be greater than maximum price.',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      const SizedBox(height: TSizes.spaceBtwSections),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: hasInvalidPriceRange
+                              ? null
+                              : () {
+                                  if (searchController.minPrice.value <= searchController.maxPrice.value) {
+                                    searchController.search();
+                                    Get.back();
+                                  }
+                                },
+                          child: const Text('Apply'),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
             ],
