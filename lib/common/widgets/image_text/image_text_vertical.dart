@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/helper_functions.dart';
 import '../images/t_circular_image.dart';
 import '../texts/t_brand_title_text.dart';
 
@@ -39,24 +38,50 @@ class TVerticalImageAndText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.only(right: TSizes.spaceBtwItems),
-        child: Column(
-          children: [
-            TCircularImage(
-                width: 85,
-                height: 82,
-                image: image,
-                fit: BoxFit.cover,
-                padding: TSizes.sm * 0.1,
-                isNetworkImage: isNetworkImage,
-                backgroundColor: backgroundColor != null? TColors.white: TColors.white
+    final isInteractive = onTap != null;
+
+    return Padding(
+      padding: const EdgeInsets.only(right: TSizes.spaceBtwItems),
+      child: Semantics(
+        button: isInteractive,
+        enabled: isInteractive,
+        label: 'Category item $title',
+        hint: isInteractive ? 'Open products for $title' : null,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(TSizes.borderRadiusMd),
+            hoverColor: TColors.primary.withOpacity(0.08),
+            focusColor: TColors.primary.withOpacity(0.14),
+            highlightColor: TColors.primary.withOpacity(0.12),
+            splashColor: TColors.primary.withOpacity(0.16),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+              child: Column(
+                children: [
+                  TCircularImage(
+                    width: 85,
+                    height: 82,
+                    image: image,
+                    fit: BoxFit.cover,
+                    padding: TSizes.sm * 0.1,
+                    isNetworkImage: isNetworkImage,
+                    backgroundColor: backgroundColor ?? TColors.white,
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems / 2),
+                  SizedBox(
+                    width: 100,
+                    child: TBrandTitleText(
+                      title: title,
+                      color: textColor,
+                      maxLines: 1,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: TSizes.spaceBtwItems / 2),
-            SizedBox(width: 100, child: TBrandTitleText(title: title, color: textColor, maxLines: 1, )),
-          ],
+          ),
         ),
       ),
     );

@@ -30,74 +30,89 @@ class TProductCardVertical extends StatelessWidget {
     final salePercentage = productController.calculateSalePercentage(product.price, product.salePrice);
     final dark = THelperFunctions.isDarkMode(context);
 
-    return GestureDetector(
-      onTap: () => Get.to(() => ProductDetailScreen(product: product)),
-
-      /// Container with side paddings, color, edges, radius and shadow.
-      child: Container(
-        width: 180,
-        padding: const EdgeInsets.all(1),
-        decoration: BoxDecoration(
-          boxShadow: [TShadowStyle.verticalProductShadow],
+    return Semantics(
+      button: true,
+      enabled: true,
+      label: 'Product card for ${product.title}',
+      hint: 'Open product details for ${product.title}',
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => Get.to(() => ProductDetailScreen(product: product)),
           borderRadius: BorderRadius.circular(TSizes.productImageRadius),
-          color: dark ? TColors.darkerGrey : TColors.white,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// Thumbnail, Wishlist Button, Discount Tag
-            TRoundedContainer(
-              height: 180,
+          hoverColor: TColors.primary.withOpacity(0.08),
+          focusColor: TColors.primary.withOpacity(0.14),
+          highlightColor: TColors.primary.withOpacity(0.12),
+          splashColor: TColors.primary.withOpacity(0.16),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+            child: Container(
               width: 180,
-              padding: const EdgeInsets.all(TSizes.sm),
-              backgroundColor: dark ? TColors.dark : TColors.light,
-              child: Stack(
+              padding: const EdgeInsets.all(1),
+              decoration: BoxDecoration(
+                boxShadow: [TShadowStyle.verticalProductShadow],
+                borderRadius: BorderRadius.circular(TSizes.productImageRadius),
+                color: dark ? TColors.darkerGrey : TColors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// -- Thumbnail Image
-                  Center(child: TRoundedImage(imageUrl: product.thumbnail, applyImageRadius: true, isNetworkImage: isNetworkImage)),
+                  /// Thumbnail, Wishlist Button, Discount Tag
+                  TRoundedContainer(
+                    height: 180,
+                    width: 180,
+                    padding: const EdgeInsets.all(TSizes.sm),
+                    backgroundColor: dark ? TColors.dark : TColors.light,
+                    child: Stack(
+                      children: [
+                        /// -- Thumbnail Image
+                        Center(child: TRoundedImage(imageUrl: product.thumbnail, applyImageRadius: true, isNetworkImage: isNetworkImage)),
 
-                  /// -- Sale Tag
-                  if (salePercentage != null) ProductSaleTagWidget(salePercentage: salePercentage),
+                        /// -- Sale Tag
+                        if (salePercentage != null) ProductSaleTagWidget(salePercentage: salePercentage),
 
-                  /// -- Favourite Icon Button
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: TFavouriteIcon(productId: product.id),
+                        /// -- Favourite Icon Button
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: TFavouriteIcon(productId: product.id),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems / 2),
+
+                  /// -- Details
+                  Padding(
+                    padding: const EdgeInsets.only(left: TSizes.sm),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TProductTitleText(title: product.title, smallSize: true),
+                        const SizedBox(height: TSizes.spaceBtwItems / 2),
+                        TBrandTitleWithVerifiedIcon(title: product.brand!.name, brandTextSize: TextSizes.small),
+                      ],
+                    ),
+                  ),
+
+                  /// Price & Add to cart button
+                  /// Use Spacer() to utilize all the space and set the price and cart button at the bottom.
+                  /// This usually happens when Product title is in single line or 2 lines (Max)
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      /// Pricing
+                      PricingWidget(product: product),
+
+                      /// Add to cart
+                      ProductCardAddToCartButton(product: product),
+                    ],
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwItems / 2),
-
-            /// -- Details
-            Padding(
-              padding: const EdgeInsets.only(left: TSizes.sm),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TProductTitleText(title: product.title, smallSize: true),
-                  const SizedBox(height: TSizes.spaceBtwItems / 2),
-                  TBrandTitleWithVerifiedIcon(title: product.brand!.name, brandTextSize: TextSizes.small),
-                ],
-              ),
-            ),
-
-            /// Price & Add to cart button
-            /// Use Spacer() to utilize all the space and set the price and cart button at the bottom.
-            /// This usually happens when Product title is in single line or 2 lines (Max)
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                /// Pricing
-                PricingWidget(product: product),
-
-                /// Add to cart
-                ProductCardAddToCartButton(product: product),
-              ],
-            ),
-          ],
+          ),
         ),
       ),
     );
