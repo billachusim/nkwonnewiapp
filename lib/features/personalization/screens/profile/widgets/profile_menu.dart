@@ -9,11 +9,13 @@ class TProfileMenu extends StatelessWidget {
     required this.title,
     required this.value,
     this.icon = Iconsax.arrow_right_34,
+    this.showEditCta = false,
   });
 
   final IconData icon;
   final VoidCallback onPressed;
   final String title, value;
+  final bool showEditCta;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,23 @@ class TProfileMenu extends StatelessWidget {
             Expanded(flex: 3, child: Text(title, style: Theme.of(context).textTheme.bodySmall)),
             Expanded(
               flex: 5,
-              child: Text(value, style: Theme.of(context).textTheme.bodyMedium, overflow: TextOverflow.ellipsis),
+              child: RichText(
+                overflow: TextOverflow.ellipsis,
+                text: TextSpan(
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  children: [
+                    TextSpan(text: value),
+                    if (showEditCta)
+                      TextSpan(
+                        text: ' • Edit',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
             Expanded(child: Icon(icon, size: 18)),
           ],
