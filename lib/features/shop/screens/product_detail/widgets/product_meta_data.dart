@@ -52,7 +52,7 @@ class TProductMetaData extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(product.price.toString(), style: Theme.of(context).textTheme.titleSmall!.apply(decoration: TextDecoration.lineThrough),),
+                  TProductPriceText(price: product.price.toString(), lineThrough: true),
                   const SizedBox(width: TSizes.spaceBtwItems)
                 ],
               ),

@@ -6,6 +6,7 @@ import '../../../../common/widgets/loaders/animation_loader.dart';
 import '../../../../home_menu.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/formatters/formatter.dart';
 import '../../controllers/product/cart_controller.dart';
 import '../checkout/checkout.dart';
 import 'widgets/cart_items.dart';
@@ -53,7 +54,7 @@ class CartScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () => Get.to(() => const CheckoutScreen()),
-                      child: Obx(() => Text('Checkout ${controller.totalCartPrice.value}')),
+                      child: Obx(() => Text('Checkout ${TFormatter.formatCurrency(controller.totalCartPrice.value)}')),
                     ),
                   ),
                 )

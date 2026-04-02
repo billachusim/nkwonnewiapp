@@ -7,6 +7,7 @@ import '../../../../common/widgets/products/cart/billing_amount_section.dart';
 import '../../../../common/widgets/products/cart/coupon_code.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/formatters/formatter.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../../../../utils/helpers/pricing_calculator.dart';
 import '../../../../utils/popups/loaders.dart';
@@ -24,7 +25,7 @@ class CheckoutScreen extends StatelessWidget {
     final cartController = CartController.instance;
     final subTotal = cartController.totalCartPrice.value;
     final orderController = Get.put(OrderController());
-    final totalAmount = TPricingCalculator.calculateTotalPrice(subTotal, 'US');
+    final totalAmount = TPricingCalculator.calculateTotalPrice(subTotal, 'NG');
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: const TAppBar(title: Text('Order Review'), showBackArrow: true),
@@ -81,7 +82,7 @@ class CheckoutScreen extends StatelessWidget {
             onPressed: subTotal > 0
                 ? () => orderController.processOrder(totalAmount)
                 : () => TLoaders.warningSnackBar(title: 'Empty Cart', message: 'Add items in the cart in order to proceed.'),
-            child: Text('Checkout \$${totalAmount.toStringAsFixed(2)}'),
+            child: Text('Checkout ${TFormatter.formatCurrency(totalAmount)}'),
           ),
         ),
       ),

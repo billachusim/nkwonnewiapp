@@ -65,7 +65,7 @@ class ProductController extends GetxController {
         return largestPrice.toString();
       } else {
         // Otherwise, return a price range
-        return '$smallestPrice - \$$largestPrice';
+        return '$smallestPrice - ₦$largestPrice';
       }
     }
   }
