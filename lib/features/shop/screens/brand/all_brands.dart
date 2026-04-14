@@ -15,7 +15,7 @@ class AllBrandsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = BrandController.instance;
+    final controller = Get.put(BrandController());
     return Scaffold(
       appBar: const TAppBar(showBackArrow: true, title: Text('Retailers')),
       body: SingleChildScrollView(
@@ -69,4 +69,3 @@ class AllBrandsScreen extends StatelessWidget {
     );
   }
 }
-

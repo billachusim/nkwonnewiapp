@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../common/widgets/images/t_circular_image.dart';
 import '../../../../../common/widgets/texts/t_brand_title_text_with_verified_icon.dart';
@@ -52,7 +53,7 @@ class TProductMetaData extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(product.price.toString(), style: Theme.of(context).textTheme.titleSmall!.apply(decoration: TextDecoration.lineThrough),),
+                  TProductPriceText(price: product.price.toString(), lineThrough: true),
                   const SizedBox(width: TSizes.spaceBtwItems)
                 ],
               ),
@@ -82,12 +83,7 @@ class TProductMetaData extends StatelessWidget {
               image: product.brand!.image,
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>   AllBrandsScreen()),
-                );
-              },
+              onTap: () => Get.to(() => const AllBrandsScreen()),
               child: TBrandTitleWithVerifiedIcon(
                 title: product.brand!.name,
                 brandTextSize: TextSizes.medium,

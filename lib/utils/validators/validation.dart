@@ -89,11 +89,11 @@ class TValidator {
       return 'Phone number is required.';
     }
 
-    // Allow international phone numbers with flexible length and common separators.
-    final phoneRegExp = RegExp(r'^\+?[0-9()\-\s]+$');
+    // Regular expression for phone number validation (assuming a 10-digit US phone number format)
+    final phoneRegExp = RegExp(r'^\d{12}$');
 
     if (!phoneRegExp.hasMatch(value)) {
-      return 'Invalid phone number format.';
+      return 'Invalid phone number format (12 digits required).';
     }
 
     return null;
