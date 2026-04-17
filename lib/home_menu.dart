@@ -9,6 +9,8 @@ import 'features/shop/screens/favourites/favourite.dart';
 import 'features/shop/screens/home/home.dart';
 import 'features/shop/screens/store/store.dart';
 
+const Duration kBottomNavAnimationDuration = Duration(milliseconds: 250);
+
 class HomeMenu extends StatelessWidget {
   const HomeMenu({super.key});
 
@@ -20,7 +22,7 @@ class HomeMenu extends StatelessWidget {
       bottomNavigationBar: Obx(
         () => NavigationBar(
           height: 80,
-          animationDuration: const Duration(seconds: 3),
+          animationDuration: kBottomNavAnimationDuration,
           selectedIndex: controller.selectedMenu.value,
           backgroundColor: THelperFunctions.isDarkMode(context) ? TColors.black : Colors.white,
           elevation: 0,
