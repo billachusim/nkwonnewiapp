@@ -33,7 +33,7 @@ class BrandController extends GetxController {
       allBrands.assignAll(fetchedCategories);
 
       // Update the featured brands list
-      featuredBrands.assignAll(allBrands.where((brand) => brand.isFeatured ?? false).take(4).toList());
+      featuredBrands.assignAll(allBrands.where((brand) => brand.isFeatured).take(4).toList());
 
     } catch (e) {
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
