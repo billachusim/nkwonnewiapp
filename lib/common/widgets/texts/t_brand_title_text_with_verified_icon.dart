@@ -13,6 +13,7 @@ class TBrandTitleWithVerifiedIcon extends StatelessWidget {
     this.maxLines = 1,
     required this.title,
     this.iconColor = TColors.primary,
+    this.showVerifiedIcon = false,
     this.textAlign = TextAlign.center,
     this.brandTextSize = TextSizes.small,
   });
@@ -22,6 +23,7 @@ class TBrandTitleWithVerifiedIcon extends StatelessWidget {
   final Color? textColor, iconColor;
   final TextAlign? textAlign;
   final TextSizes brandTextSize;
+  final bool showVerifiedIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +39,10 @@ class TBrandTitleWithVerifiedIcon extends StatelessWidget {
             brandTextSize: brandTextSize,
           ),
         ),
-        const SizedBox(width: TSizes.xs),
-        Icon(Iconsax.verify5, color: iconColor, size: TSizes.iconXs),
+        if (showVerifiedIcon) ...[
+          const SizedBox(width: TSizes.xs),
+          Icon(Iconsax.verify5, color: iconColor, size: TSizes.iconXs),
+        ],
       ],
     );
   }
