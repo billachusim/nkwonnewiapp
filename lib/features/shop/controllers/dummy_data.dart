@@ -99,6 +99,8 @@ class TDummyData {
     ],
     username: '',
     id: '',
+    gender: '',
+    dateOfBirth: null,
   );
 
   /// -- Cart

@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../../../common/widgets/loaders/circular_loader.dart';
 import '../../../data/repositories/authentication/authentication_repository.dart';
@@ -71,6 +73,8 @@ class UserController extends GetxController {
             email: userCredentials.user!.email ?? '',
             phoneNumber: userCredentials.user!.phoneNumber ?? '',
             profilePicture: userCredentials.user!.photoURL ?? '',
+            gender: '',
+            dateOfBirth: null,
           );
 
           // Save user data
@@ -114,6 +118,49 @@ class UserController extends GetxController {
       imageUploading.value = false;
       TLoaders.errorSnackBar(title: 'OhSnap', message: 'Something went wrong: $e');
     }
+  }
+
+
+  String get userId => user.value.id;
+
+  String get genderText => user.value.gender.trim().isEmpty ? 'Not set' : user.value.gender.trim();
+
+  String get dateOfBirthText {
+    final dateOfBirth = user.value.dateOfBirth;
+    if (dateOfBirth == null) return 'Not set';
+    return DateFormat('d MMM, yyyy').format(dateOfBirth);
+  }
+
+  bool get hasGender => user.value.gender.trim().isNotEmpty;
+
+  bool get hasDateOfBirth => user.value.dateOfBirth != null;
+
+  bool get hasPhoneNumber => user.value.phoneNumber.trim().isNotEmpty;
+
+  Future<void> copyUserIdToClipboard() async {
+    if (userId.isEmpty) return;
+    await Clipboard.setData(ClipboardData(text: userId));
+    TLoaders.successSnackBar(title: 'Copied', message: 'User ID copied to clipboard.');
+  }
+
+  Future<void> updatePhoneNumber(String phoneNumber) async {
+    final sanitizedPhoneNumber = phoneNumber.trim();
+    await userRepository.updateSingleField({'PhoneNumber': sanitizedPhoneNumber});
+    user.value.phoneNumber = sanitizedPhoneNumber;
+    user.refresh();
+  }
+
+  Future<void> updateGender(String gender) async {
+    final sanitizedGender = gender.trim();
+    await userRepository.updateSingleField({'Gender': sanitizedGender});
+    user.value.gender = sanitizedGender;
+    user.refresh();
+  }
+
+  Future<void> updateDateOfBirth(DateTime? dateOfBirth) async {
+    await userRepository.updateSingleField({'DateOfBirth': dateOfBirth});
+    user.value.dateOfBirth = dateOfBirth;
+    user.refresh();
   }
 
   /// Delete Account Warning

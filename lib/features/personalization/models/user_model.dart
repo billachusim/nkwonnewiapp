@@ -14,6 +14,8 @@ class UserModel {
   final String email;
   String phoneNumber;
   String profilePicture;
+  String gender;
+  DateTime? dateOfBirth;
   final CartModel? cart;
   final List<AddressModel>? addresses;
 
@@ -26,12 +28,14 @@ class UserModel {
     required this.email,
     required this.phoneNumber,
     required this.profilePicture,
+    required this.gender,
+    required this.dateOfBirth,
     this.cart,
     this.addresses,
   });
 
   /// Helper function to get the full name.
-  String get fullName => '$firstName $lastName';
+  String get fullName => '$firstName $lastName'.trim();
 
   /// Helper function to format phone number.
   String get formattedPhoneNo => TFormatter.formatPhoneNumber(phoneNumber);
@@ -51,7 +55,17 @@ class UserModel {
   }
 
   /// Static function to create an empty user model.
-  static UserModel empty() => UserModel(id: '', firstName: '', lastName: '', username: '', email: '', phoneNumber: '', profilePicture: '');
+  static UserModel empty() => UserModel(
+        id: '',
+        firstName: '',
+        lastName: '',
+        username: '',
+        email: '',
+        phoneNumber: '',
+        profilePicture: '',
+        gender: '',
+        dateOfBirth: null,
+      );
 
   /// Convert model to JSON structure for storing data in Firebase.
   Map<String, dynamic> toJson() {
@@ -62,7 +76,16 @@ class UserModel {
       'Email': email,
       'PhoneNumber': phoneNumber,
       'ProfilePicture': profilePicture,
+      'Gender': gender,
+      'DateOfBirth': dateOfBirth != null ? Timestamp.fromDate(dateOfBirth!) : null,
     };
+  }
+
+  static DateTime? _dateFromDynamic(dynamic rawDate) {
+    if (rawDate is Timestamp) return rawDate.toDate();
+    if (rawDate is DateTime) return rawDate;
+    if (rawDate is String && rawDate.isNotEmpty) return DateTime.tryParse(rawDate);
+    return null;
   }
 
   /// Factory method to create a UserModel from a Firebase document snapshot.
@@ -77,6 +100,8 @@ class UserModel {
         email: data['Email'] ?? '',
         phoneNumber: data['PhoneNumber'] ?? '',
         profilePicture: data['ProfilePicture'] ?? '',
+        gender: data['Gender'] ?? '',
+        dateOfBirth: _dateFromDynamic(data['DateOfBirth']),
       );
     } else {
       return UserModel.empty();
