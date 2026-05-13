@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/constants/sizes.dart';
@@ -14,13 +15,21 @@ class ImagesController extends GetxController {
 
   /// -- Get All Images from product and Variations
   List<String> getAllProductImages(ProductModel product) {
-    // Use Set to add unique images only
-    Set<String> images = {};
+    final images = buildProductImageList(product);
 
-    // Load thumbnail image
-    images.add(product.thumbnail);
     // Assign Thumbnail as Selected Image
     selectedProductImage.value = product.thumbnail;
+
+    return images;
+  }
+
+  @visibleForTesting
+  static List<String> buildProductImageList(ProductModel product) {
+    // Use Set to add unique images only
+    final Set<String> images = {};
+
+    // Load thumbnail image first.
+    images.add(product.thumbnail);
 
     // Get all images from the Product Model if not null.
     if (product.images != null) {
@@ -28,8 +37,9 @@ class ImagesController extends GetxController {
     }
 
     // Get all images from the Product Variations if not null.
-    if (product.productVariations != null || product.productVariations!.isNotEmpty) {
-      images.addAll(product.productVariations!.map((variation) => variation.image));
+    final variations = product.productVariations ?? const [];
+    if (product.productVariations != null && product.productVariations!.isNotEmpty) {
+      images.addAll(variations.map((variation) => variation.image));
     }
 
     return images.toList();
